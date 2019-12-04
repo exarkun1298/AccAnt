@@ -1,0 +1,77 @@
+[
+  {
+    "name": "skr4",
+    "displayName": "Grundvorlage (angelehnt an SKR04)",
+    "accounts": [
+      { "number": 100, "name": "Immaterielles", "type": "asset" },
+      { "number": 200, "name": "Grundstücke", "type": "asset" },
+      { "number": 230, "name": "Gebäude", "type": "asset" },
+      { "number": 520, "name": "PKW", "type": "asset" },
+      { "number": 700, "name": "Anzahlungen", "type": "asset" },
+      { "number": 800, "name": "Anteile und Beteiligungen", "type": "asset" },
+      { "number": 940, "name": "gegebene Darlehen", "type": "asset" },
+      { "number": 1200, "name": "Forderungen", "type": "asset" },
+      { "number": 1600, "name": "Kasse", "type": "asset" },
+      { "number": 1800, "name": "Bank", "type": "asset" },
+      { "number": 1900, "name": "Aktive Rechnungsabgrenzung", "type": "asset" },
+      { "number": 2000, "name": "Kapital", "type": "liability" },
+      { "number": 3070, "name": "Rückstellungen", "type": "liability" },
+      { "number": 3140, "name": "kurzfristige Schulden", "type": "liability" },
+      { "number": 3150, "name": "Darlehen", "type": "liability" },
+      { "number": 3300, "name": "Verbindlichkeiten", "type": "liability" },
+      {
+        "number": 3900,
+        "name": "Passive Rechnungsabgrenzung",
+        "type": "liability"
+      },
+      { "number": 4000, "name": "Erlöse", "type": "income" },
+      { "number": 4020, "name": "erhaltene Geschenke", "type": "income" },
+      { "number": 4700, "name": "Erlösschmälerungen", "type": "income" },
+      { "number": 4830, "name": "sonstige Erträge", "type": "income" },
+      {
+        "number": 4970,
+        "name": "Versicherungserstattungen und Entschädigungen",
+        "type": "income"
+      },
+      { "number": 6220, "name": "Abschreibungen", "type": "expense" },
+      { "number": 6280, "name": "Forderungsverluste", "type": "expense" },
+      { "number": 6310, "name": "Miete", "type": "expense" },
+      { "number": 6320, "name": "Heizung", "type": "expense" },
+      { "number": 6325, "name": "Strom", "type": "expense" },
+      { "number": 6326, "name": "Wasser", "type": "expense" },
+      { "number": 6335, "name": "Instandhaltung", "type": "expense" },
+      { "number": 6390, "name": "Spenden", "type": "expense" },
+      { "number": 6400, "name": "Versicherungen", "type": "expense" },
+      { "number": 6430, "name": "Abgaben", "type": "expense" },
+      { "number": 6495, "name": "Hardware und Software", "type": "expense" },
+      { "number": 6500, "name": "sonstige Fahrzeugkosten", "type": "expense" },
+      { "number": 6510, "name": "KFZ-Steuer", "type": "expense" },
+      { "number": 6520, "name": "KFZ-Versicherung", "type": "expense" },
+      { "number": 6530, "name": "Benzinkosten", "type": "expense" },
+      { "number": 6540, "name": "KFZ-Reparaturen", "type": "expense" },
+      { "number": 6610, "name": "Geschenke", "type": "expense" },
+      { "number": 6640, "name": "Bewirtung, auch eigen", "type": "expense" },
+      { "number": 6670, "name": "Reisekosten", "type": "expense" },
+      { "number": 6672, "name": "Urlaubskosten", "type": "expense" },
+      { "number": 6810, "name": "Kommuntikationskosten", "type": "expense" },
+      { "number": 6837, "name": "Abonnements", "type": "expense" },
+      { "number": 6850, "name": "sonstige Kosten", "type": "expense" },
+      { "number": 6855, "name": "Kosten des Geldverkehrs", "type": "expense" },
+      { "number": 7100, "name": "Zinserträge", "type": "income" },
+      { "number": 7650, "name": "Steuern", "type": "expense" },
+      { "number": 9000, "name": "Saldenvortrag", "type": "asset" },
+      { "number": 10000, "name": "Alle Debitoren", "type": "asset" },
+      { "number": 70000, "name": "Alle Kreditoren", "type": "liability" }
+    ]
+  },
+  {
+    "name": "skr3",
+    "displayName": "Zweite Vorlage",
+    "accounts": [
+      { "number": 6640, "name": "Bewirtung, auch eigen", "type": "expense" },
+      { "number": 6670, "name": "Reisekosten", "type": "expense" },
+      { "number": 6672, "name": "Urlaubskosten", "type": "expense" },
+      { "number": 6810, "name": "Kommuntikationskosten", "type": "expense" }
+    ]
+  }
+]

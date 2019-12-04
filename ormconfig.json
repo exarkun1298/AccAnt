@@ -1,0 +1,25 @@
+{
+  "type": "sqljs",
+  "host": "localhost",
+  "port": 3306,
+  "location": "./accant.db",
+  "username": "admin",
+  "password": "admin",
+  "database": "./accant.db",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+    "src/database/entity/**/*.js"
+  ],
+  "migrations": [
+    "src/database/migration/**/*.js"
+  ],
+  "subscribers": [
+    "src/database/subscriber/**/*.js"
+  ],
+  "cli": {
+    "entitiesDir": "src/database/entity",
+    "migrationsDir": "src/database/migration",
+    "subscribersDir": "src/database/subscriber"
+  }
+}
