@@ -33,7 +33,7 @@ class AccAnt extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        '/': (context) => ContentContainer(),
+        '/': (context) => ContentContainer(FirstStartup()),
         '/firststartup': (context) => FirstStartup(),
         '/home': (context) => FirstStartup()
       },
