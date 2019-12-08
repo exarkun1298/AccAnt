@@ -1,7 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-import './nav_list.dart';
+import '../navigation/nav_list.dart';
 
 class ContentContainer extends StatefulWidget {
   final Widget content;
@@ -19,17 +17,22 @@ class _ContentContainerState extends State<ContentContainer>
   bool navShown = false;
   double widthSlide = -1;
 
+  Widget currentWidget;
+
   @override
   void initState() {
     super.initState();
+    currentWidget = widget.content;
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 250),
       vsync: this,
     );
 
-    _offsetFloat =
-        Tween<Offset>(begin: Offset(widthSlide, 0.0), end: Offset.zero)
-            .animate(_controller);
+    _offsetFloat = Tween<Offset>(
+      begin: Offset(widthSlide, 0.0),
+      end: Offset.zero,
+    ).animate(_controller);
 
     _offsetFloat.addListener(() {
       setState(() {});
@@ -43,6 +46,12 @@ class _ContentContainerState extends State<ContentContainer>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  changeContent(Widget newContent) {
+    setState(() {
+      currentWidget = newContent;
+    });
   }
 
   double viewSize(BuildContext context) {
@@ -76,8 +85,9 @@ class _ContentContainerState extends State<ContentContainer>
             )),
       ),
       body: Container(
+        color: Colors.grey[900],
         child: Row(
-          mainAxisSize: MainAxisSize.max,
+          //mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           //mainAxisAlignment: MainAxisAlignment.start,
 
@@ -93,15 +103,15 @@ class _ContentContainerState extends State<ContentContainer>
                 //width: 200,
                 child: Container(
                   color: Colors.blueGrey[800],
-                  child: NavigationList(),
+                  child: NavigationList(context, changeContent),
                 ),
               ),
             ),
-            Container(
-              width: navShown ? viewSize(context) / 5 * 4 : viewSize(context),
+            Expanded(
+              //width: navShown ? viewSize(context) / 5 * 4 : viewSize(context),
               child: Container(
                 color: Colors.grey[900],
-                child: widget.content,
+                child: currentWidget,
               ),
             )
           ],

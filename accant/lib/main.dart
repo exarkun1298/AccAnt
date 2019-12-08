@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 
 // Import Route Widgets
 import './meta_widgets/content_container.dart';
-import './meta_widgets/first_startup.dart';
+import './pages/empty-page.dart';
 
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
@@ -33,9 +33,7 @@ class AccAnt extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        '/': (context) => ContentContainer(FirstStartup()),
-        '/firststartup': (context) => FirstStartup(),
-        '/home': (context) => FirstStartup()
+        "/": (context) => ContentContainer(EmptyPage()),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,

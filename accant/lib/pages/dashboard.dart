@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Text(
-        'home',
+        "Dashboard",
         style: TextStyle(color: Colors.white),
       ),
     );
