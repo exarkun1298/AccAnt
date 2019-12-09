@@ -15,8 +15,6 @@
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
-
-// Import Route Widgets
 import './meta_widgets/content_container.dart';
 import './pages/empty-page.dart';
 
@@ -26,6 +24,7 @@ void main() {
   runApp(new AccAnt());
 }
 
+///Base Class for Appliaction
 class AccAnt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class AccAnt extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        "/": (context) => ContentContainer(EmptyPage()),
+        '/': (context) => ContentContainer(EmptyPage()),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
