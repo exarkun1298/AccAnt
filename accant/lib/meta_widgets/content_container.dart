@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import '../navigation/nav_list.dart';
 
+/// Widget for basic app layout
+///
+/// Controls the Navbar Navigation and Content display
 class ContentContainer extends StatefulWidget {
-  final Widget content;
+  ///Content widget to display
+  const ContentContainer(this.content);
 
-  ContentContainer(this.content);
+  /// content -> Widget
+  /// THis Widget will be displayed besides the navbar
+  final Widget content;
 
   @override
   _ContentContainerState createState() => _ContentContainerState();
@@ -35,7 +41,7 @@ class _ContentContainerState extends State<ContentContainer>
     ).animate(_controller);
 
     _offsetFloat.addListener(() {
-      setState(() {});
+      setState(() => null);
     });
 
     _controller.forward();
