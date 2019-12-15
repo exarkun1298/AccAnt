@@ -13,8 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  intl: ^0.16.0
   cupertino_icons: ^0.1.0
+  data_tables: ^1.0.1
 
 dev_dependencies:
   flutter_test:
