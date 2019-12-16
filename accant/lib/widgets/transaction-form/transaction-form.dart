@@ -55,8 +55,8 @@ class _TransactionsFormState extends State<TransactionsForm> {
   }
 
   void refreshState(Function callback) {
-    setState(() async {
-      callback();
+    callback().then((e) {
+      setState(() {});
     });
   }
 

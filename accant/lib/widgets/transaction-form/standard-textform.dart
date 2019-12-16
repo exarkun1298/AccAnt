@@ -61,7 +61,7 @@ class _StandardTextformState extends State<StandardTextform> {
         onTap: () async {
           if (widget.isDateForm) {
             String picked = await _selectDate(context, widget.controller);
-            widget.refresh(() {
+            widget.refresh(<Future>() {
               widget.controller.text = picked;
             });
           }
