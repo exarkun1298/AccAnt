@@ -1,7 +1,9 @@
-import 'package:data_tables/data_tables.dart' as dtable;
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:scoped_model/scoped_model.dart';
+import '../../scoped-models/main-model.dart';
 import '../../models/transaction.dart';
+import './datatable-actionbutton.dart';
 
 class TransactionDataTable extends StatelessWidget {
   List<Transaction> transactions;
@@ -61,14 +63,16 @@ class TransactionDataTable extends StatelessWidget {
     ];
   }
 
-  List<DataRow> _buildDataRows() {
+  List<DataRow> _buildDataRows(MainModel model, BuildContext context) {
+    DateFormat formatter = DateFormat('dd.MM.yyyy');
     List<DataRow> datarows = [];
-    for (Transaction transaction in transactions) {
+
+    transactions.asMap().forEach((index, transaction) {
       datarows.add(
         DataRow(
           cells: [
             DataCell(Text(
-              transaction.book_date.toString(),
+              formatter.format(transaction.book_date),
               style: rowstyle,
             )),
             DataCell(Text(
@@ -91,44 +95,27 @@ class TransactionDataTable extends StatelessWidget {
               transaction.tags.toString(),
               style: rowstyle,
             )),
-            DataCell(Material(
-                borderRadius: BorderRadius.circular(4),
-                color: Colors.grey[900],
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(4),
-                  radius: 50,
-                  onTap: () {
-                    print('pressed');
-                  },
-                  splashColor: Colors.white,
-                  highlightColor: Colors.grey,
-                  child: Container(
-                    height: 35,
-                    width: 35,
-                    child: Icon(
-                      Icons.more_vert,
-                      color: textcolor,
-                    ),
-                  ),
-                )))
+            DataCell(DataTableActionButton(index: index)),
           ],
         ),
       );
-    }
+    });
     return datarows;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: Colors.black,
-      ),
-      child: DataTable(
-        columns: _buildDataColumns(),
-        rows: _buildDataRows(),
-      ),
-    );
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: Colors.black,
+        ),
+        child: ScopedModelDescendant<MainModel>(
+          builder: (BuildContext context, Widget child, MainModel model) =>
+              DataTable(
+            columns: _buildDataColumns(),
+            rows: _buildDataRows(model, context),
+          ),
+        ));
   }
 }

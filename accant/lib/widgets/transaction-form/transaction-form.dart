@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:scoped_model/scoped_model.dart';
+import '../../scoped-models/main-model.dart';
+
 import './form-indentation.dart';
 import './formbutton.dart';
 import './reverse-entry-checkbox.dart';
@@ -17,36 +20,27 @@ class _TransactionsFormState extends State<TransactionsForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<TextEditingController> _formTextControllers = [];
 
-  List<Transaction> testdata = [
-    Transaction(
-      account_nr: 200,
-      c_account_nr: 1200,
-      book_date: DateTime.now(),
-      amount: 22.46,
-      description: 'This is a description',
-      tags: ['one', 'two', 'three'],
-    ),
-    Transaction(
-      account_nr: 200,
-      c_account_nr: 1200,
-      book_date: DateTime.now(),
-      amount: 22.46,
-      description: 'This is a description',
-      tags: ['one', 'two', 'three'],
-    ),
-    Transaction(
-      account_nr: 200,
-      c_account_nr: 1200,
-      book_date: DateTime.now(),
-      amount: 22.46,
-      description: 'This is a description',
-      tags: ['one', 'two', 'three'],
-    ),
-  ];
+  List<Transaction> _transactions = [];
 
-  global_validator(String value) {
-    value.isEmpty ? 'Please enter a value' : null;
+  String global_validator(String value) {
+    return value == '' ? 'Please enter a value' : null;
   }
+
+  String book_date_validator(String value) {
+    DateFormat formatter = DateFormat('dd.MM.yyyy');
+    String errorMessage = '';
+    try {
+      formatter.parse(value);
+    } catch (e) {
+      errorMessage = "Bitte das Datum im Format DD.MM.YYYY eingeben" + e;
+    } finally {
+      return errorMessage;
+    }
+  }
+
+  account_number_validator(String value) {}
+  amount_validator(String value) {}
+  tags_validator(String value) {}
 
   TextEditingController _getTextController() {
     TextEditingController tec = TextEditingController();
@@ -54,104 +48,137 @@ class _TransactionsFormState extends State<TransactionsForm> {
     return tec;
   }
 
-  void refreshState(Function callback) {
-    callback().then((e) {
-      setState(() {});
-    });
+  void refreshState() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            StandardTextform.date(
-              dateFormat: DateFormat('dd.MM.yyyy'),
-              icon: Icons.calendar_today,
-              labeltext: 'Datum',
-              refresh: refreshState,
-              formKey: _formKey,
-              validator: global_validator,
-              controller: _getTextController(),
-            ),
-            StandardTextform(
-              icon: Icons.accessibility,
-              labeltext: 'Kontonummer',
-              formKey: _formKey,
-              refresh: refreshState,
-              validator: global_validator,
-              controller: _getTextController(),
-            ),
-            StandardTextform(
-              icon: Icons.add_alarm,
-              labeltext: 'Buchtext',
-              formKey: _formKey,
-              refresh: refreshState,
-              validator: global_validator,
-              controller: _getTextController(),
-            ),
-            StandardTextform(
-              icon: Icons.add_alarm,
-              labeltext: 'Betrag',
-              formKey: _formKey,
-              refresh: refreshState,
-              validator: global_validator,
-              controller: _getTextController(),
-            ),
-            StandardTextform(
-              icon: Icons.content_cut,
-              labeltext: 'Gegenkonto',
-              formKey: _formKey,
-              refresh: refreshState,
-              validator: global_validator,
-              controller: _getTextController(),
-            ),
-            ReverseEntryCheckbox(),
-            StandardTextform(
-              icon: Icons.add_alarm,
-              labeltext: 'Transaktions-Tags (optional)',
-              formKey: _formKey,
-              refresh: refreshState,
-              validator: global_validator,
-              controller: _getTextController(),
-            ),
-            Row(
+      child: ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
+          return Form(
+            key: _formKey,
+            child: Column(
               children: <Widget>[
-                FormIndentation(),
-                FormButton(
-                  onPressed: () {},
-                  label: 'Hinzufügen',
+                StandardTextform.date(
+                  model: model,
+                  dateFormat: DateFormat('dd.MM.yyyy'),
+                  icon: Icons.calendar_today,
+                  labeltext: 'Datum',
+                  refresh: refreshState,
+                  formKey: _formKey,
+                  validator: global_validator,
+                  transactionSetter: model.setBookDate,
                 ),
-                FormButton(
-                  onPressed: () {
-                    for (TextEditingController _controller
-                        in _formTextControllers) {
-                      _controller.clear();
-                    }
-                  },
-                  label: 'Leeren',
+                StandardTextform(
+                  model: model,
+                  icon: Icons.accessibility,
+                  labeltext: 'Kontonummer',
+                  formKey: _formKey,
+                  refresh: refreshState,
+                  validator: global_validator,
+                  transactionSetter: model.setAccNo,
+                  controller: _getTextController(),
                 ),
+                StandardTextform(
+                  model: model,
+                  icon: Icons.add_alarm,
+                  labeltext: 'Buchtext',
+                  formKey: _formKey,
+                  refresh: refreshState,
+                  validator: global_validator,
+                  transactionSetter: model.setDescription,
+                  controller: _getTextController(),
+                ),
+                StandardTextform(
+                  model: model,
+                  icon: Icons.add_alarm,
+                  labeltext: 'Betrag',
+                  formKey: _formKey,
+                  refresh: refreshState,
+                  validator: global_validator,
+                  transactionSetter: model.setAmount,
+                  controller: _getTextController(),
+                ),
+                StandardTextform(
+                  model: model,
+                  icon: Icons.content_cut,
+                  labeltext: 'Gegenkonto',
+                  formKey: _formKey,
+                  refresh: refreshState,
+                  validator: global_validator,
+                  transactionSetter: model.setCAccNo,
+                  controller: _getTextController(),
+                ),
+                ReverseEntryCheckbox(),
+                StandardTextform(
+                  model: model,
+                  icon: Icons.add_alarm,
+                  labeltext: 'Transaktions-Tags (optional)',
+                  formKey: _formKey,
+                  refresh: refreshState,
+                  validator: global_validator,
+                  transactionSetter: model.setTags,
+                  controller: _getTextController(),
+                ),
+                Row(
+                  children: <Widget>[
+                    FormIndentation(),
+                    FormButton(
+                      onPressed: () {
+                        bool validated = _formKey.currentState.validate();
+                        if (validated) {
+                          _formKey.currentState.save();
+                          Transaction newTransaction = model.newTransaction;
+                          print(newTransaction);
+                          setState(() {
+                            model.addTransaction(newTransaction);
+                            print(model.transactions);
+                          });
+                        }
+                      },
+                      label: 'Hinzufügen',
+                    ),
+                    FormButton(
+                      onPressed: () {
+                        for (TextEditingController _controller
+                            in _formTextControllers) {
+                          _controller.clear();
+                        }
+                        model.removeAllTransactions();
+                      },
+                      label: 'Leeren',
+                    ),
+                    FormButton(
+                      onPressed: () {
+                        model.addSomeBookings();
+                      },
+                      label: 'Mockdata',
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: <Widget>[
+                    FormIndentation(),
+                    FormButton(
+                      onPressed: () {},
+                      label: 'Absenden',
+                    ),
+                  ],
+                ),
+                model.transactions.isEmpty
+                    ? Container()
+                    : TransactionDataTable(
+                        transactions: model.transactions,
+                      ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: <Widget>[
-                FormIndentation(),
-                FormButton(
-                  onPressed: () {},
-                  label: 'Absenden',
-                ),
-              ],
-            ),
-            TransactionDataTable(
-              transactions: testdata,
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

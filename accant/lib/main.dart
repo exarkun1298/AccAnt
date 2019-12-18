@@ -15,8 +15,11 @@
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+
 import './meta_widgets/content_container.dart';
 import './pages/empty-page.dart';
+import './scoped-models/main-model.dart';
 
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
@@ -26,19 +29,23 @@ void main() {
 
 ///Base Class for Appliaction
 class AccAnt extends StatelessWidget {
+  final MainModel model = MainModel();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => ContentContainer(EmptyPage()),
-      },
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ScopedModel<MainModel>(
+      model: model,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        initialRoute: '/',
+        routes: {
+          '/': (context) => ContentContainer(EmptyPage()),
+        },
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
 
-        // See https://github.com/flutter/flutter/wiki/Desktop-shells#fonts
-        fontFamily: 'Roboto',
+          // See https://github.com/flutter/flutter/wiki/Desktop-shells#fonts
+          fontFamily: 'Roboto',
+        ),
       ),
     );
   }
