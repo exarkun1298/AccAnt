@@ -16,7 +16,6 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import './meta_widgets/content_container.dart';
 import './pages/empty-page.dart';
 import './scoped-models/main-model.dart';
